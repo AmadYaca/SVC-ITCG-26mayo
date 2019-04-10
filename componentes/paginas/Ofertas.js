@@ -32,7 +32,7 @@ export default class Ofertas extends Component {
     firebase
       .database()
       .ref()
-      .child("messages")
+      .child("ofertas")
       .child("dos")
       //pero solo la leera una vez, cuando se carge la app
       //y dentro de los parentesis le decimos que queremos recuperar
@@ -58,7 +58,7 @@ export default class Ofertas extends Component {
     firebase
       .database()
       .ref()
-      .child("messages")
+      .child("ofertas")
       .child("dos")
       .on("child_added", snapshot => {
         const data = snapshot.val()
