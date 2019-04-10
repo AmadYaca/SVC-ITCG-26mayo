@@ -9,7 +9,8 @@ import { createAppContainer, createBottomTabNavigator } from 'react-navigation'
 //const myIcon = (<Icon name="caretup" size={40} color="#900"/>)
 
 //las clases que se mostraran en cada tab
-import Page2 from './Page2'
+import Ofertas from './Ofertas'
+import Cuenta from './Cuenta'
 import Registro from './Registro'
 
 class App extends Component {
@@ -17,31 +18,31 @@ class App extends Component {
 }
 
 const TabNavigator = createBottomTabNavigator({
-  Destino: {
-    screen: Page2,
+  tabDestino: {
+    screen: Registro,
     navigationOptions: {
       tabBarLabel: 'Destino',
-     
+
     }
   },
-  Canales: {
-    screen: Registro,
+  tabOfertas: {
+    screen: Ofertas,
     navigationOptions: {
       tabBarLabel: 'Ofertas',
-    
+
     }
   },
-  Cuenta: {
-    screen: Registro,
+  tabCuenta: {
+    screen: Cuenta,
     navigationOptions: {
       tabBarLabel: 'Cuenta',
-    
     }
   },
 }, {
     //router config
-    //initialRouteName: 'Canales', //que pestaña se visualiza primero
-    //order: ['Channels', 'Account', 'Destiny'], //orden en el que se visualiza en el tab
+
+    //initialRouteName: 'tabDestino', //que pestaña se visualiza primero
+    //order: ['tabDestino', 'tabOfertas', 'tabCuenta'], //orden en el que se visualiza en el tab
 
     //navigation for complete tab navigation
     navigationOptions: {
