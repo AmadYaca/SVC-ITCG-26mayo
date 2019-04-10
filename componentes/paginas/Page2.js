@@ -1,14 +1,44 @@
-import React, {Component} from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from 'react';
+import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 
-export default class Page2 extends Component{
+export default class Page2 extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      messages: [],
+    }
+
+    this.addItem = this.addItem.bind(this);
+  }
+
+  addItem() {
+
+  }
+
   render() {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={styles.container}>
         <Button
           title="Cerrar sesion"
-          onPress={()=>this.props.navigation.navigate('Login')}
+          onPress={() => this.props.navigation.navigate('Login')}
         ></Button>
+
+        <FlatList
+          data={this.state.messages}
+          renderItem={
+            ({ item }) =>
+              <View styles={styles.list}>
+                <Text style={styles.listItem}>
+                  {item}
+                </Text>
+              </View>
+          }
+        >
+
+        </FlatList>
+
       </View>
     );
   }
@@ -20,5 +50,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  list: {
+    backgroundColor: "#fff",
+    margin: 5,
+    borderRadius: 5,
+  },
+  listItem: {
+    fontSize: 15,
+    padding: 5,
   },
 });

@@ -13,9 +13,11 @@ export default class Registro extends Component {
             usuario: "",
             contra: "",
             registroValido: "",
+
+            messages:[],
         }
 
-        //this.addItem = this.addItem.bind(this);
+        this.addItem = this.addItem.bind(this);
     }
 
     addItem() {
