@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { Constants } from 'expo'
-import * as firebase from 'firebase'
+import firebase from 'firebase'
 
 const config = {
   apiKey: "AIzaSyAGH35E_jyVSo7qYGZohB0a_BjdJhB9Fxk",
@@ -15,7 +15,7 @@ const config = {
 firebase.initializeApp(config);
 
 
-export default class Page2 extends Component {
+export default class Ofertas extends Component {
 
   constructor(props) {
     super(props)
