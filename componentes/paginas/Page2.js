@@ -27,6 +27,51 @@ export default class Page2 extends Component {
     this.addItem = this.addItem.bind(this);
   }
 
+  componentDidMount() {
+    //va a leer toda la info de baseDatos/mensajes SOLO cuando se carga la app
+    firebase
+      .database()
+      .ref()
+      .child("messages")
+      .child("dos")
+      //pero solo la leera una vez, cuando se carge la app
+      //y dentro de los parentesis le decimos que queremos recuperar
+      .once("value", snapshot => {
+        //guardamos los valores en la constante data
+        const data = snapshot.val()
+
+        //si efectivamente recuperamos algo de la consulta
+        if (data) {
+          const initMessages = [];
+          //pasamos los datos de nuestra snapshot a un arreglo llamado initMessages
+          Object
+            .keys(data)
+            .forEach(message => initMessages.push(data[message]))
+
+          this.setState({
+            messages: initMessages
+          })
+        }
+      })
+
+    //para cuando agregamos un nuevo registro
+    firebase
+      .database()
+      .ref()
+      .child("messages")
+      .child("dos")
+      .on("child_added", snapshot => {
+        const data = snapshot.val()
+
+        if(data){
+          this.setState(prevState => ({
+            messages: [data, ...prevState.messages]
+          }))
+        }
+      })
+
+  }
+
   addItem() {
 
   }
