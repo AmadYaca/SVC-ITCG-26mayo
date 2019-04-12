@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Keyboard, Text, TextInput, TouchableHighlight, StyleSheet, View } from 'react-native'
 
 import MapView, { Polyline, Marker } from 'react-native-maps'
-import MapViewDirections from 'react-native-maps-directions'
+//import MapViewDirections from 'react-native-maps-directions'
 import myKey from '../../google_api_key'
 import PolyLine from '@mapbox/polyline'
 import _ from 'lodash'
 
-export class VistaMapa extends Component {
+export default class Destino extends Component {
     constructor(props) {
         super(props)
         this.state = {

@@ -12,7 +12,7 @@ const config = {
   storageBucket: "loginexpo-a9a8f.appspot.com",
   messagingSenderId: "634585654047"
 };
-firebase.initializeApp(config);
+//firebase.initializeApp(config);
 
 
 export default class Ofertas extends Component {
@@ -33,13 +33,13 @@ export default class Ofertas extends Component {
       .database()
       .ref()
       .child("ofertas")
-      .child("dos")
       //pero solo la leera una vez, cuando se carge la app
       //y dentro de los parentesis le decimos que queremos recuperar
       .once("value", snapshot => {
         //guardamos los valores en la constante data
         const data = snapshot.val()
-
+        //jsonData = JSON.stringify(data)
+        
         //si efectivamente recuperamos algo de la consulta
         if (data) {
           const initMessages = [];
@@ -62,8 +62,9 @@ export default class Ofertas extends Component {
       .child("dos")
       .on("child_added", snapshot => {
         const data = snapshot.val()
+        //jsonData = JSON.stringify(data)
 
-        if(data){
+        if (data) {
           this.setState(prevState => ({
             messages: [data, ...prevState.messages]
           }))
@@ -90,6 +91,7 @@ export default class Ofertas extends Component {
                 </Text>
               </View>
           }
+          keyExtractor={(item, index) => index.toString()}
         >
 
         </FlatList>

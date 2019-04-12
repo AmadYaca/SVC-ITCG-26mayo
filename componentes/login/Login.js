@@ -11,6 +11,17 @@ import {
 
 import logo from '../../imagenes/itcg-black.png'
 import styles from '../../styles/LoginStyles'
+import firebase from 'firebase'
+
+const config = {
+    apiKey: "AIzaSyAGH35E_jyVSo7qYGZohB0a_BjdJhB9Fxk",
+    authDomain: "loginexpo-a9a8f.firebaseapp.com",
+    databaseURL: "https://loginexpo-a9a8f.firebaseio.com",
+    projectId: "loginexpo-a9a8f",
+    storageBucket: "loginexpo-a9a8f.appspot.com",
+    messagingSenderId: "634585654047"
+  };
+  firebase.initializeApp(config);
 
 export default class Login extends Component {
 
@@ -34,7 +45,7 @@ export default class Login extends Component {
             })
             this.props.navigation.navigate('Home')
         } else {
-            Alert.alert("Datos inconsistentes", "No se encontró el usuario en la base de datos o no está registrado")
+            Alert.alert("Datos inconsistentes", "Se equivocó al ingresar los datos o el usuario no está registrado")
         }
 
     }

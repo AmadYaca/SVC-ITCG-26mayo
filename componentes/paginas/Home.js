@@ -11,7 +11,7 @@ import { createAppContainer, createBottomTabNavigator } from 'react-navigation'
 //las clases que se mostraran en cada tab
 import Ofertas from './Ofertas'
 import Cuenta from './Cuenta'
-import Registro from './Registro'
+import Destino from '../mapa/Destino'
 
 class App extends Component {
 
@@ -19,7 +19,7 @@ class App extends Component {
 
 const TabNavigator = createBottomTabNavigator({
   tabDestino: {
-    screen: Registro,
+    screen: Destino,
     navigationOptions: {
       tabBarLabel: 'Destino',
 

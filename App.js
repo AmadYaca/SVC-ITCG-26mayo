@@ -31,7 +31,7 @@ const AppNavigator = createStackNavigator(
     }
   },
   {
-    initialRouteName: "Home",//"Register",//"Login",
+    initialRouteName: "Login",
 
     defaultNavigationOptions: {
       headerStyle: {
