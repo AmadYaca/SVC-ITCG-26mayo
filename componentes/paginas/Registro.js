@@ -4,16 +4,18 @@ import { Alert, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, 
 import styles from '../../styles/LoginStyles';
 import logo from '../../imagenes/registro.png'
 
+import firebase from 'firebase'
+
 export default class Registro extends Component {
 
     constructor(props) {
         super(props)
 
         this.state = {
-            usuario: "",
-            contra: "",
-            registroValido: "",
-
+            email: "",
+            clave: "",
+            claveValida: "",
+            
             messages:[],
         }
 
@@ -24,15 +26,32 @@ export default class Registro extends Component {
 
     }
 
-    registrarUsuario = () => {
-        if (this.state.contra === this.state.contraValida) {
-            this.props.navigation.navigate('Home')
-
-            Alert.alert('Éxito en el Registro', 'Usuario registrado')
-
+    compararContra = () => {
+        if (this.state.clave === this.state.claveValida) {
+            this.registrarUsuario(this.state.email, this.state.clave)
         } else {
             Alert.alert('Error de Confirmación', 'Las contraseñas no coinciden')
         }
+    }
+
+    registrarUsuario = (email, clave) => {
+        alert(this.state.email)
+        firebase.auth().createUserWithEmailAndPassword(email, clave).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            
+            if(errorCode == 'auth/weak-password'){
+                alert("Contraseña muy débil")
+            }else{
+                alert(errorMessage)
+            }
+          });
+
+        this.props.navigation.navigate('Home')
+
+        Alert.alert('Éxito en el Registro', 'Usuario registrado')
+        
     }
 
     regresarAlLogin = () => {
@@ -52,7 +71,7 @@ export default class Registro extends Component {
                     <TextInput
                         style={styles.input}
                         keyboardType="email-address"
-                        onChangeText={(usuarioIngresado) => this.setState({ usuario: usuarioIngresado })}
+                        onChangeText={(usuarioIngresado) => this.setState({ email: usuarioIngresado })}
                         onSubmitEditing={() => this.passwordInput.focus()}
                         placeholder="Usuario o correo"
                         placeholderTextColor={'rgba(0,0,0,0.4)'}
@@ -67,7 +86,7 @@ export default class Registro extends Component {
                         autoCapitalize="none"
                         autoCorrect={false}
                         placeholder="Contraseña"
-                        onChangeText={(contraIngresada) => this.setState({ contra: contraIngresada })}
+                        onChangeText={(contraIngresada) => this.setState({ clave: contraIngresada })}
                         onSubmitEditing={() => this.passwordConfirm.focus()}
                         placeholderTextColor={'rgba(0,0,0,0.4)'}
                         ref={(input) => this.passwordInput = input}
@@ -81,7 +100,7 @@ export default class Registro extends Component {
                         autoCapitalize="none"
                         autoCorrect={false}
                         placeholder="Confirmar contraseña"
-                        onChangeText={(confirmacionContra) => this.setState({ contraValida: confirmacionContra })}
+                        onChangeText={(confirmacionContra) => this.setState({ claveValida: confirmacionContra })}
                         placeholderTextColor={'rgba(0,0,0,0.4)'}
                         ref={(input) => this.passwordConfirm = input}
                         returnKeyType="next"

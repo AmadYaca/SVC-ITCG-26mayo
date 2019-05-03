@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Keyboard, Text, TextInput, TouchableHighlight, StyleSheet, View } from 'react-native'
+import { Keyboard, Text, TextInput, TouchableHighlight, TouchableOpacity, StyleSheet, View } from 'react-native'
 
 import MapView, { Polyline, Marker } from 'react-native-maps'
 //import MapViewDirections from 'react-native-maps-directions'
@@ -13,9 +13,12 @@ export default class Destino extends Component {
         this.state = {
             latitude: 0,
             longitude: 0,
+
             destination: "",
             predictions: [],
+
             pointCoords: [],
+
             error: "",
         }
         this.onChangeDestinationDebounced = _.debounce(
@@ -71,7 +74,7 @@ export default class Destino extends Component {
         const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${myKey}
             &input=${destination}
             &location=${this.state.latitude}, ${this.state.longitude}
-            &radius=20`//2000`
+            &radius=5`//2000`
         try {
             const result = await fetch(apiUrl)
             const json = await result.json()
@@ -140,20 +143,25 @@ export default class Destino extends Component {
                         longitudeDelta: 0.0121//0.0030,
                     }}
                     showsUserLocation={true}
+                    followsUserLocation
                 >
                     <Polyline
                         coordinates={this.state.pointCoords}
                         strokeWidth={4}
                         strokeColor="green"
                     />
+
+                    
                     {marker}
                 </MapView >
 
                 <TextInput
+                    autoFocus="true"
                     style={styles.destinationInput}
                     placeholder="¿A dónde vas?"
                     value={this.state.destination}
                     clearButtonMode="always"
+                    returnKeyType={'search'}
                     onChangeText={destination => {
                         //esta linea no la tiene, sera ee problema?
                         this.setState({ destination })
@@ -161,12 +169,29 @@ export default class Destino extends Component {
                     }}
                 />
                 {predictions}
+                
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={this.pedirAventon}
+                >
+                    <Text> Ofertar Ruta </Text>
+                </TouchableOpacity>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    button: {
+        alignItems: 'center',
+        backgroundColor: '#f4511e',
+        borderRadius: 8,
+        borderWidth: 1,
+        marginHorizontal: 85,
+        marginTop: 400,
+        opacity: 0.5,
+        padding: 10
+    },
     container: {
         ...StyleSheet.absoluteFillObject
     },

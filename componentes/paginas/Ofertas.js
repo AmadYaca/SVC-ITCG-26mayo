@@ -32,7 +32,8 @@ export default class Ofertas extends Component {
     firebase
       .database()
       .ref()
-      .child("ofertas")
+      .child("usuarios")
+      .child("uno")
       //pero solo la leera una vez, cuando se carge la app
       //y dentro de los parentesis le decimos que queremos recuperar
       .once("value", snapshot => {
@@ -58,8 +59,8 @@ export default class Ofertas extends Component {
     firebase
       .database()
       .ref()
-      .child("ofertas")
-      .child("dos")
+      .child("usuarios")
+      .child("uno")
       .on("child_added", snapshot => {
         const data = snapshot.val()
         //jsonData = JSON.stringify(data)
