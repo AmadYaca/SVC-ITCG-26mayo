@@ -23,7 +23,18 @@ export default class Registro extends Component {
     }
 
     addItem() {
+        if (!this.state.message) return;
 
+        //esta constante guarda la referencia a la bd
+        const newMsg = firebase
+            .database()
+            .ref()
+            .child("messages")
+            //push autogenerates the key for the json branches
+            //e.g. hdjksjdkjsdksjdskdj: "hola" instead of message:"hola"
+            .push(); 
+
+        newMsg.set(this.state.message, () => this.setState({ message: '' }))
     }
 
     compararContra = () => {
@@ -34,9 +45,8 @@ export default class Registro extends Component {
         }
     }
 
-    registrarUsuario = (email, clave) => {
-        alert(this.state.email)
-        firebase.auth().createUserWithEmailAndPassword(email, clave).catch(function(error) {
+    registrarEmail = () => {
+        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.clave).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -46,11 +56,13 @@ export default class Registro extends Component {
             }else{
                 alert(errorMessage)
             }
+            Alert.alert('Éxito en el Registro', 'Usuario registrado')
           });
+          this.props.navigation.navigate('Home')
+        
+    }
 
-        this.props.navigation.navigate('Home')
-
-        Alert.alert('Éxito en el Registro', 'Usuario registrado')
+    registrarUsuario = () => {
         
     }
 
@@ -111,7 +123,7 @@ export default class Registro extends Component {
                     {/*BOTON: Confirmar registro */}
                     <TouchableOpacity
                         style={styles.boton}
-                        onPress={this.registrarUsuario}
+                        onPress={this.registrarEmail}
                     >
                         <Text style={styles.botonText}>
                             Registrarse

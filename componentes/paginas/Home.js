@@ -12,6 +12,7 @@ import { createAppContainer, createBottomTabNavigator } from 'react-navigation'
 import Ofertas from './Ofertas'
 import Cuenta from './Cuenta'
 import Destino from '../mapa/Destino'
+import Chat from '../paginas/Chat'
 
 class App extends Component {
 
@@ -32,6 +33,12 @@ const TabNavigator = createBottomTabNavigator({
 
     }
   },
+  tabChat: {
+    screen: Chat,
+    navigationOptions: {
+      tabBarLabel: 'Chat',
+    }
+  },
   tabCuenta: {
     screen: Cuenta,
     navigationOptions: {
@@ -41,7 +48,7 @@ const TabNavigator = createBottomTabNavigator({
 }, {
     //router config
 
-    //initialRouteName: 'tabDestino', //que pestaña se visualiza primero
+    initialRouteName: 'tabChat', //que pestaña se visualiza primero
     //order: ['tabDestino', 'tabOfertas', 'tabCuenta'], //orden en el que se visualiza en el tab
 
     //navigation for complete tab navigation

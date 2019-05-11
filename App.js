@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 
 import { createAppContainer, createStackNavigator } from 'react-navigation'
 import Login from './componentes/login/Login'
-import Registro from './componentes/paginas/Registro'
+import Register from './componentes/paginas/Registro'
 import Home from './componentes/paginas/Home'
 
 const AppNavigator = createStackNavigator(
@@ -23,7 +23,7 @@ const AppNavigator = createStackNavigator(
     },
 
     Register: {
-      screen: Registro,
+      screen: Register,
       navigationOptions: {
         headerLeft: null,
         title: "Registrarse en SVC-ITCG",//'Formulario de REGISTRO',

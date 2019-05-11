@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Keyboard, Text, TextInput, TouchableHighlight, TouchableOpacity, StyleSheet, View } from 'react-native'
+import { Alert, Keyboard, Text, TextInput, TouchableHighlight, TouchableOpacity, StyleSheet, View } from 'react-native'
+import { Constants } from 'expo'
 
 import MapView, { Polyline, Marker } from 'react-native-maps'
 //import MapViewDirections from 'react-native-maps-directions'
@@ -86,6 +87,11 @@ export default class Destino extends Component {
         }
     }
 
+    ofertarRuta = () => {
+        this.props.navigation.push('Ofertas')
+        //this.props.navigation.navigate('Ofertas')
+    }
+
     render() {
 
         let marker = null;
@@ -93,7 +99,7 @@ export default class Destino extends Component {
             let last_point = this.state.pointCoords.length - 1
             marker = (
                 <Marker
-                    draggable={true}
+                    draggable={false}
                     coordinate={this.state.pointCoords[last_point]}
                 >
                     <View style={styles.radius}>
@@ -103,6 +109,8 @@ export default class Destino extends Component {
             )
         }
 
+        //regresa una objeto "predictions" con botones que no se presionan a manera
+        //de lista 
         const predictions = this.state.predictions.map(prediction => (
             <TouchableHighlight
                 key={prediction.id}
@@ -132,6 +140,7 @@ export default class Destino extends Component {
         return (
             <View style={styles.container}>
                 <MapView
+
                     ref={map =>
                         this.map = map
                     }
@@ -142,6 +151,7 @@ export default class Destino extends Component {
                         latitudeDelta: 0.015,//0.0030,
                         longitudeDelta: 0.0121//0.0030,
                     }}
+                    showsMyLocationButton={true}
                     showsUserLocation={true}
                     followsUserLocation
                 >
@@ -151,12 +161,10 @@ export default class Destino extends Component {
                         strokeColor="green"
                     />
 
-                    
                     {marker}
                 </MapView >
 
                 <TextInput
-                    autoFocus="true"
                     style={styles.destinationInput}
                     placeholder="¿A dónde vas?"
                     value={this.state.destination}
@@ -165,18 +173,34 @@ export default class Destino extends Component {
                     onChangeText={destination => {
                         //esta linea no la tiene, sera ee problema?
                         this.setState({ destination })
-                        this.onChangeDestinationDebounced(destination)
+                        this.onChangeDestinationDebounced(destination)//this.state.destination   ????
                     }}
                 />
                 {predictions}
-                
+
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={this.pedirAventon}
+                    onPress={() => {
+                        this.props.navigation.navigate('Ofertas')
+                        Alert.alert(
+                            'Alert Title',
+                            'My Alert Msg',
+                            [
+                              {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
+                              {
+                                text: 'Cancel',
+                                onPress: () => console.log('Cancel Pressed'),
+                                style: 'cancel',
+                              },
+                              {text: 'OK', onPress: () => console.log('OK Pressed')},
+                            ],
+                            {cancelable: false},
+                          );
+                    }}
                 >
                     <Text> Ofertar Ruta </Text>
                 </TouchableOpacity>
-            </View>
+            </View >
         )
     }
 }
@@ -188,18 +212,18 @@ const styles = StyleSheet.create({
         borderRadius: 8,
         borderWidth: 1,
         marginHorizontal: 85,
-        marginTop: 400,
+        marginTop: 350,
         opacity: 0.5,
         padding: 10
     },
     container: {
-        ...StyleSheet.absoluteFillObject
+        marginTop: Constants.statusBarHeight,
     },
     destinationInput: {
         height: 40,
         borderRadius: 8,
         borderWidth: 1,
-        marginTop: 30,
+        marginTop: 55,
         marginHorizontal: 5,
         padding: 5,
         backgroundColor: "white",
