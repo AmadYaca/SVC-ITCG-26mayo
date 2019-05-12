@@ -12,8 +12,6 @@ const config = {
   storageBucket: "loginexpo-a9a8f.appspot.com",
   messagingSenderId: "634585654047"
 };
-//firebase.initializeApp(config);
-
 
 export default class Ofertas extends Component {
 
@@ -23,8 +21,6 @@ export default class Ofertas extends Component {
     this.state = {
       messages: [],
     }
-
-    this.addItem = this.addItem.bind(this);
   }
 
   componentDidMount() {
@@ -74,9 +70,6 @@ export default class Ofertas extends Component {
 
   }
 
-  addItem() {
-
-  }
 
   render() {
     return (
@@ -93,10 +86,8 @@ export default class Ofertas extends Component {
               </View>
           }
           keyExtractor={(item, index) => index.toString()}
-        >
-
-        </FlatList>
-
+        />
+        
       </View>
     );
   }

@@ -46,6 +46,7 @@ export default class Chat extends React.Component {
                         style={styles.txtInput}
                         value={this.state.message}
                     />
+                    
                 </View>
                 <FlatList data={this.state.messages}
                     renderItem={
