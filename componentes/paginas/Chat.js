@@ -1,7 +1,9 @@
 import React from 'react';
-import { Button, FlatList, StyleSheet, View, TextInput } from 'react-native';
+import { Button, FlatList, StyleSheet, View, Text, TextInput } from 'react-native';
 import { Constants } from 'expo'
 import firebase from 'firebase'
+
+var database = firebase.database()
 
 export default class Chat extends React.Component {
 
@@ -9,21 +11,43 @@ export default class Chat extends React.Component {
         super(props)
 
         this.state = {
-            id: "2",
             message: "",
             messages: [],
         }
 
         this.addOfertaCarro = this.addOfertaCarro.bind(this);
+        this.cargarDatosDeLaBD = this.cargarDatosDeLaBD.bind(this);
+    }
+
+    cargarDatosDeLaBD(){
+        //
+    }
+
+    componentDidMount() {
+        //I just erase de .once method and stopped showing data twice :) so obvious
+
+        //metodo que recarga la lista cuando agregamos un nuevo registro
+        database
+            .ref('ofertas/pasajeros')
+            .on("child_added", snapshot => {
+                const data = snapshot.val()
+                //jsonData = JSON.stringify(data)
+
+                if (data) {
+                    this.setState(prevState => ({
+                        messages: [data, ...prevState.messages]
+                    }))
+                }
+            })
+
     }
 
     addOfertaCarro() {
         if (!this.state.message) return;
 
         //esta constante guarda la referencia a la bd
-        const oftCarros = firebase
-            .database()
-            .ref('ofertas/carros')
+        const oftCarros = database
+            .ref('ofertas/pasajeros')
             .push();
 
         //newMsg.set(this.state.message, () => this.setState({ message: '' }))
@@ -46,7 +70,7 @@ export default class Chat extends React.Component {
                         style={styles.txtInput}
                         value={this.state.message}
                     />
-                    
+
                 </View>
                 <FlatList data={this.state.messages}
                     renderItem={
@@ -58,7 +82,9 @@ export default class Chat extends React.Component {
                                 </Text>
                             </View>
                     }
+                    keyExtractor={(item, index) => index.toString()}
                 />
+
             </View>
         );
     }

@@ -7,6 +7,9 @@ import MapView, { Polyline, Marker } from 'react-native-maps'
 import myKey from '../../google_api_key'
 import PolyLine from '@mapbox/polyline'
 import _ from 'lodash'
+import firebase from 'firebase'
+
+const database = firebase.database()
 
 export default class Destino extends Component {
     constructor(props) {
@@ -28,17 +31,17 @@ export default class Destino extends Component {
 
     //OBTIENE LA UBICACIÓN EXACTA DEL USUARIO
     componentDidMount() {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                this.setState({
-                    latitude: position.coords.latitude,
-                    longitude: position.coords.longitude,
-                })
-            },
+        navigator.geolocation.getCurrentPosition(position => {
+
+            this.setState({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+            })
+        },
             error => {
                 this.setState({ error: error.message })
             },
-            { enableHighAccuracy: true, timeout: 10000, maximumAge: 2000 }
+            { enableHighAccuracy: true, timeout: 8000, maximumAge: 1500 }
         );
     }
 
@@ -88,8 +91,26 @@ export default class Destino extends Component {
     }
 
     ofertarRuta = () => {
-        this.props.navigation.push('Ofertas')
-        //this.props.navigation.navigate('Ofertas')
+        //recuperamos el destino desde el state
+        const destino = this.state.destination
+
+        //si no se ha escrito nada en el textInput cuando se presiona el boton, sale del metodo
+        if (!destino) return;
+
+        //si efectivamente se escribio algo en el textInput
+        //prepara la BD para recibir un push (inserción de datos)
+        const ofertaDeCarro =
+            database
+                .ref('ofertas/pasajeros')
+                .push();
+
+        //guardamos el destino dentro de la BD
+        ofertaDeCarro.set(destino, () =>
+            //borramos lo escrito en el textInput
+            this.setState({ destination: '' }))
+
+        //cambiamos a la pestañana para visualizar la nueva ruta
+        this.props.navigation.navigate('tabOfertas')
     }
 
     render() {
@@ -180,23 +201,7 @@ export default class Destino extends Component {
 
                 <TouchableOpacity
                     style={styles.button}
-                    onPress={() => {
-                        this.props.navigation.navigate('Ofertas')
-                        Alert.alert(
-                            'Alert Title',
-                            'My Alert Msg',
-                            [
-                              {text: 'Ask me later', onPress: () => console.log('Ask me later pressed')},
-                              {
-                                text: 'Cancel',
-                                onPress: () => console.log('Cancel Pressed'),
-                                style: 'cancel',
-                              },
-                              {text: 'OK', onPress: () => console.log('OK Pressed')},
-                            ],
-                            {cancelable: false},
-                          );
-                    }}
+                    onPress={this.ofertarRuta}
                 >
                     <Text> Ofertar Ruta </Text>
                 </TouchableOpacity>

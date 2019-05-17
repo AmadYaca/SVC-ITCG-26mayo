@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, } from 'react-native';
-
 import { Constants } from 'expo'
+import firebase from 'firebase'
+
+var database = firebase.database()
 
 export default class Cuenta extends Component {
 

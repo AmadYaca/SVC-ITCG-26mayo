@@ -48,7 +48,7 @@ const TabNavigator = createBottomTabNavigator({
 }, {
     //router config
 
-    initialRouteName: 'tabChat', //que pestaña se visualiza primero
+    initialRouteName: 'tabDestino', //que pestaña se visualiza primero
     //order: ['tabDestino', 'tabOfertas', 'tabCuenta'], //orden en el que se visualiza en el tab
 
     //navigation for complete tab navigation

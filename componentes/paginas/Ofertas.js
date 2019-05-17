@@ -4,14 +4,7 @@ import { Button, FlatList, StyleSheet, Text, View } from 'react-native';
 import { Constants } from 'expo'
 import firebase from 'firebase'
 
-const config = {
-  apiKey: "AIzaSyAGH35E_jyVSo7qYGZohB0a_BjdJhB9Fxk",
-  authDomain: "loginexpo-a9a8f.firebaseapp.com",
-  databaseURL: "https://loginexpo-a9a8f.firebaseio.com",
-  projectId: "loginexpo-a9a8f",
-  storageBucket: "loginexpo-a9a8f.appspot.com",
-  messagingSenderId: "634585654047"
-};
+var database = firebase.database()
 
 export default class Ofertas extends Component {
 
@@ -19,24 +12,22 @@ export default class Ofertas extends Component {
     super(props)
 
     this.state = {
+      message: "",
       messages: [],
     }
   }
 
   componentDidMount() {
     //va a leer toda la info de baseDatos/mensajes SOLO cuando se carga la app
-    firebase
-      .database()
-      .ref()
-      .child("ofertas")
-      .child("dfajardo")
+    database
+      .ref('ofertas/pasajeros')
       //pero solo la leera una vez, cuando se carge la app
       //y dentro de los parentesis le decimos que queremos recuperar
       .once("value", snapshot => {
         //guardamos los valores en la constante data
         const data = snapshot.val()
         //jsonData = JSON.stringify(data)
-        
+
         //si efectivamente recuperamos algo de la consulta
         if (data) {
           const initMessages = [];
@@ -52,11 +43,8 @@ export default class Ofertas extends Component {
       })
 
     //para cuando agregamos un nuevo registro
-    firebase
-      .database()
-      .ref()
-      .child("usuarios")
-      .child("dos")
+    database
+      .ref('ofertas/pasajeros')
       .on("child_added", snapshot => {
         const data = snapshot.val()
         //jsonData = JSON.stringify(data)
@@ -87,7 +75,7 @@ export default class Ofertas extends Component {
           }
           keyExtractor={(item, index) => index.toString()}
         />
-        
+
       </View>
     );
   }
