@@ -16,11 +16,6 @@ export default class Chat extends React.Component {
         }
 
         this.addOfertaCarro = this.addOfertaCarro.bind(this);
-        this.cargarDatosDeLaBD = this.cargarDatosDeLaBD.bind(this);
-    }
-
-    cargarDatosDeLaBD(){
-        //
     }
 
     componentDidMount() {
