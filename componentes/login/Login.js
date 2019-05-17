@@ -20,8 +20,8 @@ const config = {
     projectId: "loginexpo-a9a8f",
     storageBucket: "loginexpo-a9a8f.appspot.com",
     messagingSenderId: "634585654047"
-  };
-  firebase.initializeApp(config);
+};
+firebase.initializeApp(config);
 
 export default class Login extends Component {
 
