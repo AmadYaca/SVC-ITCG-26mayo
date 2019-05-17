@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, } from 'react-native';
+import { FlatList, StyleSheet, View, Text, } from 'react-native';
 import { Constants } from 'expo'
 import firebase from 'firebase'
 
 var database = firebase.database()
 
 export default class Cuenta extends Component {
+  constructor(props) {
+    super(props)
 
+    this.state = {
+      messages:[],
+    }
+  }
   componentDidMount() {
     //metodo que recarga la lista cuando agregamos un nuevo registro
     database
@@ -21,7 +27,6 @@ export default class Cuenta extends Component {
           }))
         }
       })
-
   }
 
   render() {

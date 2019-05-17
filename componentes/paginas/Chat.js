@@ -23,7 +23,7 @@ export default class Chat extends React.Component {
 
         //metodo que recarga la lista cuando agregamos un nuevo registro
         database
-            .ref('ofertas/pasajeros')
+            .ref('ofertas/carros')
             .on("child_added", snapshot => {
                 const data = snapshot.val()
                 //jsonData = JSON.stringify(data)
@@ -42,7 +42,7 @@ export default class Chat extends React.Component {
 
         //esta constante guarda la referencia a la bd
         const oftCarros = database
-            .ref('ofertas/pasajeros')
+            .ref('ofertas/carros')
             .push();
 
         //newMsg.set(this.state.message, () => this.setState({ message: '' }))

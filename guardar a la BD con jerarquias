@@ -1,0 +1,17 @@
+AQUI ESTA EL SECRETO PARA GUARDAR CON JERARQUIAS
+
+cohersionALosIds = (ids) => {
+        
+        var nuevoId =
+            database
+                .ref('id')
+                .push();
+        nuevoId.set(ids)
+
+        this.setState({
+            idsUsuarios:[],
+        })
+
+    }
+
+meter objetos json directamente, si los guarda

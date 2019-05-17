@@ -5,6 +5,7 @@ import styles from '../../styles/LoginStyles';
 import logo from '../../imagenes/registro.png'
 
 import firebase from 'firebase'
+const database = firebase.database()
 
 export default class Registro extends Component {
 
@@ -12,62 +13,43 @@ export default class Registro extends Component {
         super(props)
 
         this.state = {
-            email: "",
+            usuario: "",
             clave: "",
-            claveValida: "",
-            
-            messages:[],
+            confirmacion: "",
         }
-
-        this.addItem = this.addItem.bind(this);
     }
 
-    addItem() {
-        if (!this.state.message) return;
-
-        //esta constante guarda la referencia a la bd
-        const newMsg = firebase
-            .database()
-            .ref()
-            .child("messages")
-            //push autogenerates the key for the json branches
-            //e.g. hdjksjdkjsdksjdskdj: "hola" instead of message:"hola"
-            .push(); 
-
-        newMsg.set(this.state.message, () => this.setState({ message: '' }))
+    borrarCamposDelRegistro = () => {
+        this.setState({
+            usuario: '',
+            clave: '',
+            confirmacion: '',
+        })
     }
 
     compararContra = () => {
-        if (this.state.clave === this.state.claveValida) {
-            this.registrarUsuario(this.state.email, this.state.clave)
-        } else {
-            Alert.alert('Error de Confirmación', 'Las contraseñas no coinciden')
+        if (this.state.clave === this.state.confirmacion) {
+            this.addUser(this.state.usuario, this.state.clave)
+        }
+        else {
+            Alert.alert('Error de Confirmación', 'Las claves no coinciden')
         }
     }
 
-    registrarEmail = () => {
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.clave).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            
-            if(errorCode == 'auth/weak-password'){
-                alert("Contraseña muy débil")
-            }else{
-                alert(errorMessage)
-            }
-            Alert.alert('Éxito en el Registro', 'Usuario registrado')
-          });
-          this.props.navigation.navigate('Home')
+    addUser(usuario, clave) {
         
-    }
+        var num = 3
 
-    registrarUsuario = () => {
-        
-    }
+        database.
+            ref('usuarios/'+num).set({
+                usuario: usuario,
+                clave: clave,
+            })
 
-    regresarAlLogin = () => {
-        this.props.navigation.navigate('Login')
+        alert('Bienvenido ' + usuario)
+        this.borrarCamposDelRegistro()
+        this.props.navigation.navigate("Home")
+        //}
     }
 
     render() {
@@ -83,16 +65,17 @@ export default class Registro extends Component {
                     <TextInput
                         style={styles.input}
                         keyboardType="email-address"
-                        onChangeText={(usuarioIngresado) => this.setState({ email: usuarioIngresado })}
+                        onChangeText={(usuarioIngresado) => this.setState({ usuario: usuarioIngresado })}
                         onSubmitEditing={() => this.passwordInput.focus()}
                         placeholder="Usuario o correo"
                         placeholderTextColor={'rgba(0,0,0,0.4)'}
                         ref={(input) => this.nomUsuario = input}
                         returnKeyType="next"
-                        underlineColorAndroid='transparent'>
+                        underlineColorAndroid='transparent'
+                        value={this.state.usuario}>
                     </TextInput>
 
-                    {/*Contraseña*/}
+                    {/*Clave*/}
                     <TextInput
                         style={styles.input}
                         autoCapitalize="none"
@@ -103,38 +86,41 @@ export default class Registro extends Component {
                         placeholderTextColor={'rgba(0,0,0,0.4)'}
                         ref={(input) => this.passwordInput = input}
                         returnKeyType="next"
-                        secureTextEntry>
+                        secureTextEntry
+                        value={this.state.clave}>
                     </TextInput>
 
-                    {/*Confirmar*/}
+                    {/*Confirmación*/}
                     <TextInput
                         style={styles.input}
                         autoCapitalize="none"
                         autoCorrect={false}
                         placeholder="Confirmar contraseña"
-                        onChangeText={(confirmacionContra) => this.setState({ claveValida: confirmacionContra })}
+                        onChangeText={(confirmarClave) => this.setState({ confirmacion: confirmarClave })}
+                        onSubmitEditing={() => this.props.navigation.navigate("Login")}
                         placeholderTextColor={'rgba(0,0,0,0.4)'}
                         ref={(input) => this.passwordConfirm = input}
-                        returnKeyType="next"
-                        secureTextEntry>
+                        returnKeyType="done"
+                        secureTextEntry
+                        value={this.state.confirmacion}>
                     </TextInput>
 
-
-                    {/*BOTON: Confirmar registro */}
                     <TouchableOpacity
                         style={styles.boton}
-                        onPress={this.registrarEmail}
+                        onPress={
+                            this.compararContra
+                        }
                     >
                         <Text style={styles.botonText}>
                             Registrarse
-                    </Text>
+                        </Text>
 
                     </TouchableOpacity>
 
                     {/*BOTON: Regresar a la Pág de inicio */}
                     <TouchableOpacity
                         style={styles.botonVolver}
-                        onPress={this.regresarAlLogin}
+                        onPress={() => this.props.navigation.navigate("Login")}
                     >
                         <Text style={styles.botonTextPeq}>
                             Volver a Inicio de Sesión

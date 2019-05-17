@@ -110,6 +110,7 @@ export default class Destino extends Component {
             this.setState({ destination: '' }))
 
         //cambiamos a la pestañana para visualizar la nueva ruta
+        Alert.alert("Ruta Registrada", "¿A qué hora sales?")
         this.props.navigation.navigate('tabOfertas')
     }
 

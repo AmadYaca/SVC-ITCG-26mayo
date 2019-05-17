@@ -34,7 +34,8 @@ export default class Ofertas extends Component {
           //pasamos los datos de nuestra snapshot a un arreglo llamado initMessages
           Object
             .keys(data)
-            .forEach(message => initMessages.push(data[message]))
+            .forEach(message =>
+              initMessages.push(data[message]))
 
           this.setState({
             messages: initMessages
@@ -68,6 +69,9 @@ export default class Ofertas extends Component {
           renderItem={
             ({ item }) =>
               <View styles={styles.list}>
+                <Text style={styles.tituloOfertas}>
+                  Pasajeros que buscan Viaje
+                </Text>
                 <Text style={styles.listItem}>
                   {item}
                 </Text>
@@ -103,4 +107,10 @@ const styles = StyleSheet.create({
     fontSize: 15,
     padding: 5,
   },
+  tituloOfertas:{
+    alignItems: 'center',
+    fontSize: 30,
+    margin: 10,
+    padding:5,
+  }
 });

@@ -22,27 +22,58 @@ const config = {
     messagingSenderId: "634585654047"
 };
 firebase.initializeApp(config);
+const database = firebase.database()
 
 export default class Login extends Component {
 
     constructor(props) {
-        super(props);
+        super(props)
+
         this.state = {
             usuario: '',
-            contra: '',
-
+            clave: '',
+            usuarios: [],
             inputs: '',
-        };
+        }
     }
 
-    iniciarSesion = () => {
-        usuarioReg = 'Amilcar'
-        suContra = 'yes'
-        if (this.state.usuario === usuarioReg && this.state.contra === suContra) {
+    componentDidMount(){
+        var usuariosRegistrados =
+            database
+                .ref('usuarios')
+
+        usuariosRegistrados.once('value', snapshot => {
+            var data = snapshot.val()
+
+            if (data) {
+                const initUsuarios = [];
+                //pasamos los datos de nuestra snapshot a un arreglo llamado initMessages
+                Object
+                    .keys(data)
+                    .forEach(usuario =>
+                        initUsuarios.push(data[usuario]))
+
+                this.setState({
+                    usuarios: initUsuarios
+                })
+            }
+        })
+    }
+
+    iniciarSesion = (usuario, clave) => {
+        //usuarioReg = 'Amilcar'
+        //suClave = 'yes'
+        usuarioReg = this.state.usuarios[1].usuario
+        console.log("usuario"+usuarioReg)
+        suClave = this.state.usuarios[1].clave
+        console.log("clave"+suClave)
+
+        if (usuario === usuarioReg && clave === suClave) {
             this.setState({
                 usuario: '',
                 contra: '',
             })
+            Alert.alert("Bienvenido " + this.state.usuario)
             this.props.navigation.navigate('Home')
         } else {
             Alert.alert("Datos inconsistentes", "Se equivocó al ingresar los datos o el usuario no está registrado")
@@ -86,8 +117,8 @@ export default class Login extends Component {
                         autoCapitalize="none"
                         autoCorrect={false}
                         placeholder="Contraseña"
-                        onChangeText={(contra) => this.setState({ contra })}
-                        onSubmitEditing={(event) => this.iniciarSesion()}
+                        onChangeText={(clave) => this.setState({ clave })}
+                        onSubmitEditing={(event) => this.iniciarSesion(this.state.usuario, this.state.clave)}
                         placeholderTextColor={'rgba(0,0,0,0.4)'}
                         ref={(input) => this.passwordInput = input}
                         returnKeyType="done"
