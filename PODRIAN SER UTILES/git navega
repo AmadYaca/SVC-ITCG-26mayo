@@ -1,0 +1,88 @@
+0. creación del proyecto 
+1. se borro el codigo default 
+2. se agrego react navigation
+3. se agregaron tabs (sin swap, porque son bottom, solo en top hay swap con react-navigation)
+4. se adecuo cada tab de acuerdo a su funcion
+5. arreglo automatico de android studio para la version de las tools
+6. se añadio la paqueteria de vector-icon para react-native
+7. se linkearon los icons de vector al build.gradle de la app
+8. se les agrego estilo a las tabs
+9. se agrego la paqueteria react-native-maps
+10. se agrego mapbox
+11. se cofiguro el Gradle Setup, y se aplicaron sugerencias de suncronizacion deandroid studio, se procederá a resolver problemas de de -decrapitated-
+12. se arreglaron los problemas de -decrapitated-, y en la MainApplication registramos el paquete de MapBox
+13. minimos cambios al gradle
+14. se agrego la API_KEY a los metadatos de android para poder usar el sdk de maps de google
+15. cambie los styles mil veces, genere 100 apikeys diferentes e intente varios ajustes a los archivos del gradle... no se q funciono pero... :D
+16. se agregaron las coordenadas de Guzman
+17. se separo las tabs en clases diferentes y se agrego un permiso para pedir la ubicacion del usuario
+18. actualmente el mapa inicia en el centro de guzman y despues pone un marcador en la ubicacion del usuario, pero la vista se queda en el inicio, no te lleva al marcador, temas del state, creo
+19. se cambio la API_KEY para poder usar mapas, rutas y lugares... de google maps
+20. se agrego un archivo con la clave de la API y se agrego un comentario en la clase del mapa
+21. se agrego un marcador personalizado
+22. Se establecio tuxpan como region inicial y el marcador tmb aparece ahi, si no se activa la ubicacion del disppositivo
+23. se añadio geolocation-service
+24. se configuro geolocation-service para android y de pasada se borro toda la configuracion de MapBox, la cual no funcionaba
+25 se creo un archivo .ts con la siguiente linea: declare module 'react-native-geolocation-service';, de esta manera ya se puede importar el servicio de geolocation
+26. se importa el servicio geolocation
+27 se cambio la localizacion de google maps por la de geolocation, la cual, funciona de maravilla! Te pregunta si quieres prender la ubicacion la 1era ves que la usas y se apaga cuando termina, La ubicacion inicial del mapa ahora si se actualiza :D
+28. se configuro location-services
+29.sabe
+30. se requiere de un archivo que contenga el modulo Geolocation-services y por alguna razon el que habia creado dejo de funcionar asi q se creo uno nuevo
+31. se agrego un archivo de login en su respectiva carpeta
+32. cambios minimos
+33. se le agrego navegacion (Stack Navigator)  a la clase Sets
+34. se especificó la version 16 para google play services para poder trabajar con location API
+35. se quito la implementacion de play-services-location:16.0.0 en el app/build gradle pero falto quitar las especificacion en el root/gradle........tmb se comentaron las lineas de jit y maven que se requerian para usar mapbox
+36. me perdi
+37. se agrego nuevamente navigation.location, en lugar de Geolocation (lo cual indica que esta paqueteria nunca dio fallos, era otra cosa)
+38. se agrego la paqueteria de map-direction de la API de diGoogle Directions
+39. agregue manual y exitosamente una ruta desde tuxpan hasta guzman, ahora voy agregar text inputs y la libreria de places de google para poder elegir rutas mediante la app n.n
+40. se agrego la paqueteria places-autocomplete
+41. se agrego un text input para aplicarle google places autocomplete,
+42. se agrego la paqueteria lodash para manejar las consultas a la api y se redujo el radio de predicciones de google places
+43 cambios de imagen
+------ se quito porque no se pudo configurar
+se agrego autenticacion con facebook a la app maps1000
+* f692747 se agregaron facebook-login
+* bfd06bb se corrigieron errores del gradle
+* d0a4f4b 38 se implemento correctamente el boton de facebook para iniciar sesion, tiene los parametros basicos me gustaria saber como cambiarlos
+* 56bf302 37 se configuro la paqueteria de FBSDK
+-------
+44. se agrego firebase
+45. se configuro firebase
+46. se estructuro el proyecto en (componentes/mapa, tabs, login)
+47. funciona todo bien
+48. se actualizo react-navigation, se instalo gesture-handler y se linkeo esta ultima al proyecto, se obtuvieron varios errores, pero se piensan corregir añadiendo la configuracion que se recomienda en la documentacion
+49. ya quedo funcional la navigation, se arreglaronlos problemas que surgieron por el metro bundler al aplicar "react-native start --reset-cache" para forzar un nuevo bundle con la actualizacion del react-navigation de la 2.x a la 3.x
+50. se arreglaron problemas de linkeo con firebase, al parecer ya esta corriendo
+51. habia un error porque faltaba la dependencia firebase-database, se agrego y se modificaron las versiones para corregir el error
+52. un nuevo bundle que era para corregir un error pero no sirvio
+53. se cambio la api key para agregar directions y se agregaron las primeras lines de codigo para manejar las polylineas, nos hace falta instalar mapbox/polyline
+54. se agrego mapbox/polyline
+55. en mainAplication se comento dos lineas (firebaseDatabase) que daban error, y se implemento correctamente la seleccion de rutas en la app, solo arroja un error al principio porque no hay una ruta seleccionada, objeto igual a undefined
+56. ya quedo listo la ruta, inicia en la ubicacion, se seleccion unb destino y se traza la ruta
+57. se agrego un nueva sshkey, para subir el proyecto a github, la ultima key no servia
+58. configuraciones, la verdad nose, olvide comentar este paso hace mucho tiempo, (chale)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

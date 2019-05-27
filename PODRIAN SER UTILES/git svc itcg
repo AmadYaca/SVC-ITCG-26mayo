@@ -1,0 +1,60 @@
+1.    se implemento una flatlist en componente pagina 2, para poder recibir los datos de la BD de firebase
+
+2.    se agrego firebase
+
+3.	se creo el componente ofertas. Por el momento es exactamente igual a Pagina2 
+
+4.	se corrigio lirol error en Login y 
+	en Page2 se agregaron 2 escuchas... 
+		1-para cargar todos los datos al iniciar la app y 
+		2-para actualizar la info despues de agregar un nuevo registro
+
+5.	se creo el componente Cuenta, solo contiene un text
+
+6. se elimino Page2.js y se hicieron cambios minimos a Ofertas.js
+
+7. se agregaron los nuevos componentes al Stack Navigator... osea el componente Home
+
+8. minimos cambios a Ofertas.js y se creo la carpeta mapa y dentro de esta el componente
+ Destino.js que será el encargado de mostrar el mapa y las rutas
+
+------trabajo pasado de Navega, aqui esta
+9. copie el componente VistaMapa del pasado proyecto Navega en el componente Destino.js 
+... cruzo los dedos para poder corregir cualquier inconveniente y no tener que hacer todo
+ desde cero n.n
+-------------------
+
+10. hasta aqui funciona todo, solo me dio error el git porque instale watchman, no se si 
+habra  mas problemas
+
+11. se cambio la ruta a el mapa directamente para efecto de pruebas
+
+12. se agrego el boton para ofertar la ruta
+
+13. se agrego un tab para simular un chat, esto para jugar con las funciones de firebase y tomar familiaridad
+
+14. 1.ya sirve el boton Ofertar Ruta, guarda el valor en la ruta especificada y cambia de tab, aun falta distinguir entre carro y 			pasajero,,, 
+    2. ya no renderiza doble al cambiar de componente, me di cuenta del gran error de logica
+
+15. se borro codigo innecesario en chatTab
+
+16. cambios minimos
+
+17. 	1.ya se pueden agregar usuarios sobreescribiendo en una misma ruta---> queda generar un idAutomatico para crear un nuevo registro por 			usuario,,, 
+	2. ya se puede iniciar sesion con un usuario registrado desde la app, solamente una posicion, esta de forma estatica---> queda meter a 			un ciclo el objeto de usuarios par compararlo con los datos ingresados,,, 
+	3. El boton de ofertas ya recupera la ruta ingresada, la guarda en la BD y te redirige a la pestaña de ofertas----> queda pedirle de 			alguna forma la hora de salida al usuario---->tmb queda poder elegir si eres conductor o pasajero,,, 
+	4. Ofertas te muestra una lista de ofertas ya sea C o P----> falta dicernir si va a ser C o P---->tmb falta darle mas estilos,,, 		5.Cuenta te muestra el mismo usuario que hizo conexion---->falta darle mas estilos y opciones de configuracion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
