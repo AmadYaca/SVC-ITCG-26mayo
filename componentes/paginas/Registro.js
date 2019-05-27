@@ -97,7 +97,7 @@ export default class Registro extends Component {
                         autoCorrect={false}
                         placeholder="Confirmar contraseña"
                         onChangeText={(confirmarClave) => this.setState({ confirmacion: confirmarClave })}
-                        onSubmitEditing={() => this.props.navigation.navigate("Login")}
+                        onSubmitEditing={this.compararContra}
                         placeholderTextColor={'rgba(0,0,0,0.4)'}
                         ref={(input) => this.passwordConfirm = input}
                         returnKeyType="done"
